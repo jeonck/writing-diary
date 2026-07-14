@@ -13,7 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-I tried a new coffee shop near my office this morning.
-I finally finished reading the book I started last month.
-My cat knocked a plant off the windowsill again.
+Your deeds are your monuments.
 ```
