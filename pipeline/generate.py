@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Daily English writing diary pipeline.
 
-input/sentence.md 에서 오늘의 영어 문장을 읽어, Claude로 짧은 영어 일기와
-응용 문장을 생성한 뒤 Hugo 포스트로 저장한다. 문장이 어제와 동일하면 건너뛴다.
+input/sentence.md 에서 오늘의 영어 문장(들)을 읽어, 문장마다 Claude로 짧은 영어 일기와
+응용 문장을 생성해 Hugo 포스트로 저장한다. 코드블록 안에 여러 줄을 적으면 줄마다 별도
+포스트가 생성된다. 이미 게시에 사용된 문장(문장 텍스트 해시 기준)은 다시 나타나도
+건너뛴다.
 
 Usage:
     python pipeline/generate.py [--dry-run]
@@ -67,19 +69,22 @@ def slugify(title: str) -> str:
     return (slug or "diary")[:60].rstrip("-")
 
 
-def read_sentence() -> str:
+def read_sentences() -> list[str]:
     if not SENTENCE_FILE.exists():
         log(f"오류: {SENTENCE_FILE} 파일이 없습니다")
         sys.exit(1)
     text = SENTENCE_FILE.read_text(encoding="utf-8")
     fenced = re.search(r"```[a-zA-Z]*\n(.*?)```", text, re.DOTALL)
     body = fenced.group(1) if fenced else text
+    sentences = []
     for line in body.splitlines():
         line = line.strip()
         if line and not line.startswith(("<!--", "-", "#")):
-            return line
-    log("오류: input/sentence.md 에서 문장을 찾지 못했습니다")
-    sys.exit(1)
+            sentences.append(line)
+    if not sentences:
+        log("오류: input/sentence.md 에서 문장을 찾지 못했습니다")
+        sys.exit(1)
+    return sentences
 
 
 class FatalAPIError(Exception):
@@ -242,50 +247,75 @@ def main() -> int:
         return 1
 
     model = os.environ.get("CLAUDE_MODEL", "claude-sonnet-4-6")
-    sentence = read_sentence()
-    log(f"오늘의 문장: {sentence}")
+    sentences = read_sentences()
+    log(f"입력된 문장 {len(sentences)}개")
 
     state = load_state()
-    h = sentence_hash(sentence)
-    if state.get("last_hash") == h:
-        log("어제와 동일한 문장 — 중복 게시 방지를 위해 건너뜁니다")
-        log("(input/sentence.md 를 새 문장으로 바꾸면 다음 실행에서 게시됩니다)")
-        return 0
+    processed: dict = state.get("processed", {})
+    if not processed and state.get("last_hash"):  # 이전(단일 문장) 버전 state.json 마이그레이션
+        processed[state["last_hash"]] = state.get("last_date", "")
 
     log(f"=== 생성 시작 (backend={backend}, model={model}, dry_run={args.dry_run}) ===")
-    try:
-        if backend == "claude-code":
-            result = generate_cli(model, sentence)
-        else:
-            result = generate_api(client, model, sentence)
-    except FatalAPIError as exc:
-        log(f"중단: 복구 불가능한 API 오류 — {exc}")
-        log("→ Anthropic 크레딧/API 키(또는 CLAUDE_CODE_OAUTH_TOKEN)를 확인하세요.")
-        return 1
 
-    if result is None:
-        log("생성 실패 — 이번 실행은 건너뜁니다 (다음 실행에서 재시도)")
-        return 1
+    new_count = 0
+    skipped_dup = 0
+    failed = 0
+    fatal_error = None
+    for sentence in sentences:
+        h = sentence_hash(sentence)
+        if h in processed:
+            skipped_dup += 1
+            continue
 
-    now = datetime.now(KST)
-    log(f"→ {result['title_ko']}")
+        log(f"\n오늘의 문장: {sentence}")
+        try:
+            if backend == "claude-code":
+                result = generate_cli(model, sentence)
+            else:
+                result = generate_api(client, model, sentence)
+        except FatalAPIError as exc:
+            fatal_error = exc
+            break
+
+        if result is None:
+            log("  생성 실패 — 건너뜁니다 (다음 실행에서 재시도)")
+            failed += 1
+            continue
+
+        now = datetime.now(KST)
+        log(f"  → {result['title_ko']}")
+
+        if args.dry_run:
+            log("  --- diary_en ---\n  " + result["diary_en"])
+            log("  --- diary_ko ---\n  " + result["diary_ko"])
+            log("  --- applied_sentences ---")
+            for a in result["applied_sentences"]:
+                log(f"    - {a['en']} / {a['ko']}")
+            continue
+
+        path = write_post(sentence, result, now)
+        log(f"  생성 파일: {path.relative_to(ROOT)}")
+        processed[h] = now.date().isoformat()
+        new_count += 1
+
+    log(f"\n=== 결과: 신규 {new_count} / 중복 스킵 {skipped_dup} / 생성 실패 {failed} ===")
 
     if args.dry_run:
-        log("\n--- diary_en ---\n" + result["diary_en"])
-        log("\n--- diary_ko ---\n" + result["diary_ko"])
-        log("\n--- applied_sentences ---")
-        for a in result["applied_sentences"]:
-            log(f"  - {a['en']} / {a['ko']}")
-        log("\n(dry-run — 파일 생성/기록 갱신 없음)")
-        return 0
+        log("(dry-run — 파일 생성/기록 갱신 없음)")
+        return 1 if fatal_error else 0
 
-    path = write_post(sentence, result, now)
-    log(f"생성 파일: {path.relative_to(ROOT)}")
+    if new_count:
+        state["processed"] = processed
+        state.pop("last_hash", None)
+        state.pop("last_date", None)
+        STATE_FILE.write_text(json.dumps(state, indent=1, sort_keys=True), encoding="utf-8")
 
-    state["last_hash"] = h
-    state["last_date"] = now.date().isoformat()
-    STATE_FILE.write_text(json.dumps(state, indent=1, sort_keys=True), encoding="utf-8")
-    return 0
+    if fatal_error:
+        log(f"\n중단: 복구 불가능한 API 오류 — {fatal_error}")
+        log("→ Anthropic 크레딧/API 키(또는 CLAUDE_CODE_OAUTH_TOKEN)를 확인하세요.")
+        log("→ 성공한 문장은 이미 게시/기록되었습니다.")
+        return 1
+    return 1 if failed and not new_count else 0
 
 
 if __name__ == "__main__":

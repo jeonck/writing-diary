@@ -1,6 +1,6 @@
 # 매일 영어 일기 (writing-diary)
 
-매일 하나의 영어 문장을 GitHub 파일에 입력해두면, 그 문장을 바탕으로 짧은 영어 일기와
+매일 영어 문장을 GitHub 파일에 입력해두면, 문장마다 그 문장을 바탕으로 짧은 영어 일기와
 응용 문장이 자동으로 생성되어 매일 아침 Hugo 블로그에 게시되는 파이프라인.
 
 사이트: https://jeonck.github.io/writing-diary/
@@ -8,13 +8,14 @@
 ## 어떻게 동작하나
 
 ```
-input/sentence.md (오늘의 문장, GitHub 웹 UI에서 수정)
+input/sentence.md (오늘의 문장들, 한 줄에 하나씩, GitHub 웹 UI에서 수정)
         │
         ▼  매일 07:00 KST (GitHub Actions cron)
 pipeline/generate.py
-  - 문장을 읽고 claude CLI로 일기 + 응용 문장 2개 생성
-  - content/posts/YYYY-MM-DD-....md 로 저장
-  - 어제와 같은 문장이면 건너뜀 (pipeline/state.json 으로 중복 방지)
+  - 코드블록 안의 각 줄을 문장 하나로 읽음
+  - 이미 게시된 적 있는 문장(해시 기준)은 건너뜀 — pipeline/state.json 으로 추적
+  - 새 문장마다 claude CLI로 일기 + 응용 문장 2개 생성
+  - content/posts/YYYY-MM-DD-....md 로 문장당 포스트 1개씩 저장
         │
         ▼  변경사항 커밋 & push
 Hugo build → GitHub Pages 배포
@@ -23,12 +24,12 @@ Hugo build → GitHub Pages 배포
 ## 매일 사용하는 방법
 
 1. GitHub 저장소에서 [`input/sentence.md`](input/sentence.md) 파일을 연다.
-2. 연필(✏️) 아이콘을 눌러 편집 모드로 들어간다.
-3. 코드블록(```) 안의 문장을 오늘 연습하고 싶은 영어 문장 한 줄로 바꾼다.
+2. 연필(✏️) 아이콘을 눌러 편집 모드로 들어간다. (블로그 상단 "오늘의 문장 입력 ✏️" 버튼으로 바로 이동 가능)
+3. 코드블록(```) 안에 오늘 연습하고 싶은 영어 문장을 한 줄에 하나씩 적는다. 여러 문장을 적으면 문장마다 포스트가 하나씩 생성된다.
 4. 우측 상단 "Commit changes"로 저장한다. (로컬 git 작업 불필요)
-5. 다음날 07:00(KST)에 자동으로 그 문장을 기준으로 일기 포스트가 게시된다.
+5. 다음날 07:00(KST)에 자동으로 새 문장들을 기준으로 일기 포스트가 게시된다.
 
-문장을 바꾸지 않고 그대로 두면, 같은 내용이 반복 게시되지 않도록 그날은 건너뛴다.
+이미 게시에 사용된 문장은 파일에 그대로 남아있어도(같은 날이든 다른 날이든) 다시 게시되지 않는다.
 
 즉시 확인하고 싶다면 GitHub 저장소 → Actions 탭 → "Daily English Diary" →
 "Run workflow" 로 수동 실행할 수 있다.
@@ -59,9 +60,9 @@ gh secret set CLAUDE_CODE_OAUTH_TOKEN --repo jeonck/writing-diary
 
 | 경로 | 역할 |
 |---|---|
-| `input/sentence.md` | 오늘의 영어 문장 (사람이 매일 수정) |
-| `pipeline/generate.py` | 문장 → 일기/응용문장 생성 → Hugo 포스트 작성 |
-| `pipeline/state.json` | 마지막으로 처리한 문장의 해시 (중복 게시 방지) |
+| `input/sentence.md` | 오늘의 영어 문장들 — 한 줄에 하나씩 (사람이 매일 수정) |
+| `pipeline/generate.py` | 문장별 일기/응용문장 생성 → Hugo 포스트 작성 |
+| `pipeline/state.json` | 게시에 사용된 문장 해시 목록 (중복 게시 방지) |
 | `content/posts/` | 생성된 일기 포스트 |
 | `.github/workflows/daily.yml` | 매일 07:00 KST 생성 + 배포 워크플로 |
 | `themes/PaperMod` | Hugo 테마 (git submodule) |
