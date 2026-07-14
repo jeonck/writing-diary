@@ -37,6 +37,11 @@ paginate = 10
 
 [menu]
   [[menu.main]]
+    identifier = 'input'
+    name = '오늘의 문장 입력 ✏️'
+    url = 'https://github.com/jeonck/writing-diary/edit/main/input/sentence.md'
+    weight = 5
+  [[menu.main]]
     identifier = 'posts'
     name = 'Posts'
     url = '/posts/'
