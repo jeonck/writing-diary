@@ -8,5 +8,5 @@
   - 문장을 바꾸지 않은 채로 두면(어제와 동일하면) 중복 게시를 막기 위해 그날은 건너뜁니다.
 -->
 ```
-I woke up early today and went for a run in the park.
+I tried a new coffee shop near my office this morning.
 ```
