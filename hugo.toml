@@ -1,4 +1,4 @@
-baseURL = 'https://jeonck.github.io/writing-diary/'
+baseURL = 'https://diary.metacog.co.kr/'
 locale = 'ko-kr'
 title = '매일 영어 일기'
 theme = 'PaperMod'

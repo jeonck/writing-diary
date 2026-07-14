@@ -3,7 +3,7 @@
 매일 영어 문장을 GitHub 파일에 입력해두면, 문장마다 그 문장을 바탕으로 짧은 영어 일기와
 응용 문장이 자동으로 생성되어 매일 아침 Hugo 블로그에 게시되는 파이프라인.
 
-사이트: https://jeonck.github.io/writing-diary/
+사이트: https://diary.metacog.co.kr/
 
 ## 어떻게 동작하나
 
@@ -78,11 +78,12 @@ gh secret set CLAUDE_CODE_OAUTH_TOKEN --repo jeonck/writing-diary
 | `content/posts/` | 생성된 일기 포스트 |
 | `.github/workflows/daily.yml` | 매일 07:00 KST 생성 + 배포 워크플로 |
 | `themes/PaperMod` | Hugo 테마 (git submodule) |
+| `static/CNAME` | 커스텀 도메인(diary.metacog.co.kr) — GitHub Pages 빌드 시 `public/CNAME`으로 복사됨 |
 
 ## 로컬에서 테스트
 
 ```bash
-hugo server -D                      # http://localhost:1313/writing-diary/
+hugo server -D                      # http://localhost:1313/
 python3 pipeline/generate.py --dry-run   # 파일 생성 없이 결과만 확인
 ```
 
