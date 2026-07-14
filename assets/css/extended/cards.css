@@ -1,0 +1,26 @@
+/* 목록 페이지(홈/Posts/Tags/태그별 목록)의 post-entry를 카드 그리드로 배치 */
+@media (min-width: 768px) {
+  body.list .main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  body.list .main > .page-header,
+  body.list .main > .post-content,
+  body.list .main > .first-entry,
+  body.list .main > .page-footer {
+    grid-column: 1 / -1;
+  }
+
+  body.list .main > .post-entry {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.list .main > .post-entry .entry-content {
+    flex: 1;
+  }
+}
