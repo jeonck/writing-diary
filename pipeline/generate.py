@@ -4,7 +4,8 @@
 input/sentence.md 에서 오늘의 영어 문장(들)을 읽어, 문장마다 Claude로 짧은 영어 일기와
 응용 문장을 생성해 Hugo 포스트로 저장한다. 코드블록 안에 여러 줄을 적으면 줄마다 별도
 포스트가 생성된다. 이미 게시에 사용된 문장(문장 텍스트 해시 기준)은 다시 나타나도
-건너뛴다. 입력이 비어 있으면 니체 명언 목록에서 그날의 문장을 대신 사용한다.
+건너뛴다. 입력이 비어 있으면 여러 위인(니체, 마르쿠스 아우렐리우스, 공자 등)의 명언
+목록에서 그날의 문장을 대신 사용한다.
 
 Usage:
     python pipeline/generate.py [--dry-run]
@@ -36,23 +37,38 @@ CONTENT_DIR = ROOT / "content" / "posts"
 
 KST = timezone(timedelta(hours=9))
 
-FALLBACK_AUTHOR = "Friedrich Nietzsche"
+# 문장이 비어 있을 때 대신 쓰는 명언 풀 — 저자 다양화 (모두 공개 저작물/고전 인용구)
 FALLBACK_QUOTES = [
-    "What does not kill me makes me stronger.",
-    "He who has a why to live can bear almost any how.",
-    "Without music, life would be a mistake.",
-    "There are no facts, only interpretations.",
-    "And if you gaze long enough into an abyss, the abyss will gaze back into you.",
-    "One must still have chaos in oneself to be able to give birth to a dancing star.",
-    "The higher we soar, the smaller we appear to those who cannot fly.",
-    "Become who you are.",
-    "To live is to suffer, to survive is to find some meaning in the suffering.",
-    "There is always some madness in love. But there is also always some reason in madness.",
-    "No price is too high to pay for the privilege of owning yourself.",
-    "Whoever fights monsters should see to it that he does not become a monster in the process.",
-    "In individuals, insanity is rare; but in groups, parties, nations and epochs, it is the rule.",
-    "Sometimes people don't want to hear the truth because they don't want their illusions destroyed.",
-    "The advantage of a bad memory is that one enjoys several times the same good things for the first time.",
+    {"text": "What does not kill me makes me stronger.", "author": "Friedrich Nietzsche"},
+    {"text": "He who has a why to live can bear almost any how.", "author": "Friedrich Nietzsche"},
+    {"text": "Without music, life would be a mistake.", "author": "Friedrich Nietzsche"},
+    {"text": "And if you gaze long enough into an abyss, the abyss will gaze back into you.", "author": "Friedrich Nietzsche"},
+    {"text": "One must still have chaos in oneself to be able to give birth to a dancing star.", "author": "Friedrich Nietzsche"},
+    {"text": "Become who you are.", "author": "Friedrich Nietzsche"},
+    {"text": "You have power over your mind, not outside events. Realize this, and you will find strength.", "author": "Marcus Aurelius"},
+    {"text": "The happiness of your life depends upon the quality of your thoughts.", "author": "Marcus Aurelius"},
+    {"text": "Waste no more time arguing about what a good man should be. Be one.", "author": "Marcus Aurelius"},
+    {"text": "Luck is what happens when preparation meets opportunity.", "author": "Seneca"},
+    {"text": "We suffer more in imagination than in reality.", "author": "Seneca"},
+    {"text": "It's not what happens to you, but how you react to it that matters.", "author": "Epictetus"},
+    {"text": "No man is free who is not master of himself.", "author": "Epictetus"},
+    {"text": "It does not matter how slowly you go as long as you do not stop.", "author": "Confucius"},
+    {"text": "Our greatest glory is not in never falling, but in rising every time we fall.", "author": "Confucius"},
+    {"text": "A journey of a thousand miles begins with a single step.", "author": "Lao Tzu"},
+    {"text": "Nature does not hurry, yet everything is accomplished.", "author": "Lao Tzu"},
+    {"text": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", "author": "Aristotle"},
+    {"text": "The only true wisdom is in knowing you know nothing.", "author": "Socrates"},
+    {"text": "Do not go where the path may lead, go instead where there is no path and leave a trail.", "author": "Ralph Waldo Emerson"},
+    {"text": "What lies behind us and what lies before us are tiny matters compared to what lies within us.", "author": "Ralph Waldo Emerson"},
+    {"text": "Go confidently in the direction of your dreams. Live the life you have imagined.", "author": "Henry David Thoreau"},
+    {"text": "The wound is the place where the light enters you.", "author": "Rumi"},
+    {"text": "The secret of getting ahead is getting started.", "author": "Mark Twain"},
+    {"text": "Twenty years from now you will be more disappointed by the things you didn't do than by the ones you did do.", "author": "Mark Twain"},
+    {"text": "Alone we can do so little; together we can do so much.", "author": "Helen Keller"},
+    {"text": "Well done is better than well said.", "author": "Benjamin Franklin"},
+    {"text": "An investment in knowledge pays the best interest.", "author": "Benjamin Franklin"},
+    {"text": "Simplicity is the ultimate sophistication.", "author": "Leonardo da Vinci"},
+    {"text": "What we think, we become.", "author": "Buddha"},
 ]
 
 SYSTEM_PROMPT = """당신은 영어 학습자를 위한 다이어리 작문 도우미다. 사용자가 오늘의 영어
@@ -111,14 +127,14 @@ def read_sentences() -> list[str]:
 
 
 def fallback_quote_item(today: "datetime.date") -> dict:
-    """input이 비어 있을 때 사용할 니체 명언 — 날짜 기준으로 순환 선택."""
+    """input이 비어 있을 때 사용할 명언 — 날짜 기준으로 여러 저자의 명언 풀을 순환 선택."""
     idx = today.timetuple().tm_yday % len(FALLBACK_QUOTES)
     quote = FALLBACK_QUOTES[idx]
     return {
-        "text": quote,
-        "source": FALLBACK_AUTHOR,
+        "text": quote["text"],
+        "source": quote["author"],
         # 날짜를 해시에 포함 — 같은 명언이 몇 주 뒤 다시 나와도 새로 게시되도록
-        "dedup_key": sentence_hash(f"{today.isoformat()}::{quote}"),
+        "dedup_key": sentence_hash(f"{today.isoformat()}::{quote['text']}"),
     }
 
 
@@ -307,7 +323,7 @@ def main() -> int:
     if sentences:
         log(f"입력된 문장 {len(sentences)}개")
     else:
-        log(f"input/sentence.md 에 문장이 없어 니체 명언으로 대체합니다: {queue[0]['text']}")
+        log(f"input/sentence.md 에 문장이 없어 명언으로 대체합니다: {queue[0]['text']} (— {queue[0]['source']})")
 
     state = load_state()
     processed: dict = state.get("processed", {})
