@@ -13,5 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-Your deeds are your monuments.
+Where can I get my parking validated?
 ```
