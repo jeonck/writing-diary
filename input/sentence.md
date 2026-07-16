@@ -14,4 +14,8 @@
 -->
 ```
 Where can I get my parking validated?
+He went out of his way to help me with the project.
+The company is bending over backwards to satisfy its new clients.
+She is a great teacher who is willing to go the extra mile for her students.
+They expect results, but they won't lift a finger to support the team.
 ```
