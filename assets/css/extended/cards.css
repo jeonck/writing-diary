@@ -1,3 +1,11 @@
+/* 홈 인포 섹션(제목+설명+소셜아이콘)과 첫 포스트 카드 사이의 불필요한 빈 여백 제거.
+   PaperMod의 post-entry.css가 .first-entry에 min-height:320px + 하단 마진을 강제해
+   콘텐츠 높이와 무관하게 큰 공백이 생김. (참고: jeonck/one-sentence LAYOUT_FIXES.md) */
+.first-entry {
+  min-height: unset;
+  margin-bottom: 0;
+}
+
 /* 목록 페이지(홈/Posts/Tags/태그별 목록)의 post-entry를 카드 그리드로 배치 */
 @media (min-width: 768px) {
   body.list .main {
