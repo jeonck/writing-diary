@@ -13,9 +13,9 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-Where can I get my parking validated?
-He went out of his way to help me with the project.
-The company is bending over backwards to satisfy its new clients.
-She is a great teacher who is willing to go the extra mile for her students.
-They expect results, but they won't lift a finger to support the team.
+I attend IT meetup.
+I applied for the job on the site.
+I came to visit at this group.
+Are spicy foods your cup of tea?
+A random smell can suddenly trigger a sense of nostalgia.
 ```
