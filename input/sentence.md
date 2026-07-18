@@ -13,9 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-I attend IT meetup.
-I applied for the job on the site.
-I came to visit at this group.
-Are spicy foods your cup of tea?
-A random smell can suddenly trigger a sense of nostalgia.
+I really liked tips 4, 10 and 11. 
 ```
