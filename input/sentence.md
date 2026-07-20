@@ -13,5 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-I really liked tips 4, 10 and 11. 
+This is bananas! 
 ```
