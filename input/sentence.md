@@ -13,5 +13,12 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-I'm coming down with something. 
+pet peeve
+between a rock and a hard place
+Purple Martin
+to bite off more than you can chew
+to let down
+red tape
+charm for cellphone
+
 ```
