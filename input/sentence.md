@@ -13,6 +13,7 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-flip that
+bite your tongue
+take the reins 
 
 ```
