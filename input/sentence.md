@@ -13,7 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-bite your tongue
-take the reins 
-
+spill the beans
+on the fly 
 ```
