@@ -13,7 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-spill the beans
-on the fly
-could not be more bullish 
+I am working on some other avenues for you as well
 ```
