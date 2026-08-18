@@ -13,5 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-I am working on some other avenues for you as well
+Where this bit us
 ```
