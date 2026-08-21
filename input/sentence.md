@@ -13,6 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-first-day hiccups
-be scrambling to 
+beside the point
+both grounded 
 ```
