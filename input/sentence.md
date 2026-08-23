@@ -13,6 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-beside the point
-both grounded 
+you have a lot to offer 
 ```
