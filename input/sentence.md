@@ -13,5 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-you have a lot to offer 
+once in a blue moon
+
 ```
