@@ -13,6 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-once in a blue moon
-ALL FOUR AT ONCE IS A REWRITE
+break-glass
 ```
