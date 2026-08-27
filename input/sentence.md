@@ -13,7 +13,7 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-break-glass
+Meta settles teen-addiction lawsuit for up to $16.68 billion
 Yes, it's up for grabs. Help yourself!
 I'm dealing with jet lag right now.
 You look sharp.
