@@ -19,5 +19,7 @@ I'm dealing with jet lag right now.
 You look sharp.
 Happy Hump day!
 on the same wavelength
-just the job 
+just the job
+I’m wrapping things up now.
+let’s pick this up on Monday 
 ```
