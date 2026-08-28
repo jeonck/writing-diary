@@ -24,5 +24,7 @@ I’m wrapping things up now.
 let’s pick this up on Monday
 you can say that again
 tell me about it
-don’t push it 
+don’t push it
+that figures
+don’t sweat it
 ```
