@@ -13,18 +13,10 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-Meta settles teen-addiction lawsuit for up to $16.68 billion
-Yes, it's up for grabs. Help yourself!
-I'm dealing with jet lag right now.
-You look sharp.
-Happy Hump day!
-on the same wavelength
-just the job
-I’m wrapping things up now.
-let’s pick this up on Monday
-you can say that again
-tell me about it
-don’t push it
-that figures
-don’t sweat it
+first thing in the morning lol
+can we hop on a call
+pick your brain
+thank you for the input
+do you have a minute 
+
 ```
