@@ -18,5 +18,5 @@ can we hop on a call
 pick your brain
 thank you for the input
 do you have a minute 
-
+without the property that pays for it
 ```
