@@ -17,6 +17,7 @@ first thing in the morning lol
 can we hop on a call
 pick your brain
 thank you for the input
-do you have a minute 
+do you have a minute
+that explains it
 without the property that pays for it
 ```
