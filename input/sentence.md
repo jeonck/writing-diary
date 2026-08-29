@@ -13,11 +13,5 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-first thing in the morning lol
-can we hop on a call
-pick your brain
-thank you for the input
-do you have a minute
-that explains it
-without the property that pays for it
+What are you getting at?
 ```
