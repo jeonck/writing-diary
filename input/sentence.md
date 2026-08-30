@@ -13,5 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-What are you getting at?
+We need to get our ducks in a row
+
 ```
