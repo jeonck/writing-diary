@@ -15,5 +15,5 @@
 ```
 We need to get our ducks in a row
 I’m on the fence.
-
+We're about to begin our descent.
 ```
