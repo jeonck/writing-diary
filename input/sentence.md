@@ -13,7 +13,8 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-We need to get our ducks in a row
-I’m on the fence.
-We're about to begin our descent.
+go for it
+I doubt it
+can you make it
+that’s about it 
 ```
