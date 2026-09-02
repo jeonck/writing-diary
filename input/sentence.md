@@ -19,4 +19,6 @@ can you make it
 that’s about it
 Just a little teeny
  It's pretty tall robot, and it's for people who have strokes.
+they took an English name
+
 ```
