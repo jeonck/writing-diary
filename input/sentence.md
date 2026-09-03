@@ -13,12 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-go for it
-I doubt it
-can you make it
-that’s about it
-Just a little teeny
- It's pretty tall robot, and it's for people who have strokes.
-they took an English name
-
+dumpster fire
+affordability 
 ```
