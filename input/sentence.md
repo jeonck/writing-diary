@@ -13,6 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-10 Days Down, 10 Days to Go!
+I'm so done.
  
 ```
