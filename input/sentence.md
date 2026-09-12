@@ -13,7 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-I'm so done.
-out of the blue.
+Put everything on it.
  
 ```
