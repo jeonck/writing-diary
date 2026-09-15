@@ -13,6 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-cast-iron stomach
+I will circulate this to the team after the meeting.
  
 ```
