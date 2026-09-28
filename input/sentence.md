@@ -13,11 +13,17 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-
-✅1. to rule out: ~를 배제하다
-✅2. nudge: 슬쩍 리마인드하다, 넌지시 말하다
-✅3. fiddling: (세부사항의)조율
-✅4. heavy lift: 공수/노력이 많이 드는 일 
-
- 
+Nothing beats a cold glass of water on a hot summer day.
+I get to dress up in a costume
+The LLM generates a grounded response
+short and sweet
+I hope you have a stellar week.
+cutoff time
+dismissal at 3:35
+let's spoil our staff with
+replacement cost for book
+pumpkin-based goodies
+show-off
+Applications help secure essential funding
+Peanut Butter Bowl(
 ```
