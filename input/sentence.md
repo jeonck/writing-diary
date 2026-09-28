@@ -13,6 +13,11 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-I will circulate this to the team after the meeting.
+
+✅1. to rule out: ~를 배제하다
+✅2. nudge: 슬쩍 리마인드하다, 넌지시 말하다
+✅3. fiddling: (세부사항의)조율
+✅4. heavy lift: 공수/노력이 많이 드는 일 
+
  
 ```
