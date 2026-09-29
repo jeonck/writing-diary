@@ -13,17 +13,7 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-Nothing beats a cold glass of water on a hot summer day.
-I get to dress up in a costume
-The LLM generates a grounded response
-short and sweet
-I hope you have a stellar week.
-cutoff time
-dismissal at 3:35
-let's spoil our staff with
-replacement cost for book
-pumpkin-based goodies
-show-off
-Applications help secure essential funding
-Peanut Butter Bowl(
+this book would not be possible without ...
+engineers publish honest accounts of their own outages
+
 ```
