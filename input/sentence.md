@@ -13,7 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-this book would not be possible without ...
-engineers publish honest accounts of their own outages
+The boss chewed out the employee for arriving late."
 
 ```
