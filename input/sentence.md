@@ -13,7 +13,6 @@
     (문장을 깜빡해도 게시가 끊기지 않습니다).
 -->
 ```
-Make sure your student knows their login and password or they will be delayed on the day of testing or possibly unable to test.
-It will be administered right after school on Monday January 25, 2027.
+a cock and bull story 
 
 ```
